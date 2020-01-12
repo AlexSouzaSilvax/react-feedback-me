@@ -18,8 +18,6 @@ function App() {
     //console.log(feedback);
     //console.log(dataCompleta);
 
-    setMsgObg(true);
-
     await api
       .post("/feedback", { email, feedback, dataCompleta })
       .then(response => {
