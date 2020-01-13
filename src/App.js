@@ -19,7 +19,7 @@ function App() {
     //console.log(dataCompleta);
 
     await api
-      .post("/feedback", { email, feedback, dataCompleta })
+      .post("/feedback/criar", { email, feedback, dataCompleta })
       .then(response => {
         //console.log(response.data);
 
