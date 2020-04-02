@@ -14,7 +14,7 @@ body,
 }
 
 body {
-  background: #444;
+  background: #000;
   background-size: cover;
   -webkit-font-smoothing: antialiased !important;
 }
@@ -55,6 +55,11 @@ button {
   line-height: 30px;
   margin-bottom: 30px;
   color: #170202;
+}
+
+.content > p.msgError {
+  font-size: 14px;
+  color: red;
 }
 
 .content form {

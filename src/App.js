@@ -4,32 +4,37 @@ import api from "./services/api";
 import "./App.css";
 
 function App() {
-  const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
   const [msgObg, setMsgObg] = useState();
+  const [textBtn, setTextBtn] = useState("feedback me");
+  const [msgError, setMsgError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (!feedback) {
+      //alert("Campo feedback é obrigatório");
+      setMsgError("Campo feedback é obrigatório *");
+    } else {
+      setMsgError("");
+      setTextBtn("Salvando...");
 
-    var date = new Date();
-    var dataCompleta = date.toLocaleString();
+      var date = new Date();
+      var dataCompleta = date.toLocaleString();
 
-    //console.log(email);
-    //console.log(feedback);
-    //console.log(dataCompleta);
-
-    await api
-      .post("/feedback", { email, feedback, dataCompleta })
-      .then(response => {
-        //console.log(response.data);
-
-        if (response.status === 200) {
-          setMsgObg(true);
-        }
-      })
-      .catch(error => {
-        alert("Serviço indisponível");
-      });
+      await api
+        .post("/feedback", { feedback, dataCompleta })
+        .then(response => {
+          if (response.status === 200) {
+            setMsgObg(true);
+            setTextBtn("Salvo com sucesso, obrigado.");
+          }
+        })
+        .catch(error => {
+          //alert("Serviço indisponível");
+          setMsgError("Serviço indisponível *");
+          setTextBtn("feedback me");
+        });
+    }
   }
 
   return (
@@ -37,7 +42,7 @@ function App() {
       <div className="content">
         <img
           alt="apenas eu"
-          src="https://pbs.twimg.com/profile_images/1202375124663619585/6-H_aAxK_400x400.jpg"
+          src="https://pbs.twimg.com/profile_images/1229280534137901058/QuZ1v0Kv_400x400.jpg"
         />
 
         <p>
@@ -45,16 +50,10 @@ function App() {
           tanto para os meus projetos/minha pessoa. É isso vlw!
         </p>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">E-MAIL </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={event => setEmail(event.target.value)}
-          />
+        {msgError ? <p className="msgError">{msgError}</p> : <></>}
 
-          <label htmlFor="feedback">FeedBack</label>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="feedback">FeedBack *</label>
 
           <input
             id="feedback"
@@ -65,7 +64,7 @@ function App() {
           />
 
           <button className="btn" type="submit">
-            feedback me
+            {textBtn}
           </button>
         </form>
         {msgObg ? (
