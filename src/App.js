@@ -21,6 +21,7 @@ function App() {
       var date = new Date();
       var dataCompleta = date.toLocaleString();
 
+<<<<<<< HEAD
       await api
         .post("/feedback", { feedback, dataCompleta })
         .then(response => {
@@ -35,6 +36,24 @@ function App() {
           setTextBtn("feedback me");
         });
     }
+=======
+    //console.log(email);
+    //console.log(feedback);
+    //console.log(dataCompleta);
+
+    await api
+      .post("/feedback/criar", { email, feedback, dataCompleta })
+      .then(response => {
+        //console.log(response.data);
+
+        if (response.status === 200) {
+          setMsgObg(true);
+        }
+      })
+      .catch(error => {
+        alert("Serviço indisponível");
+      });
+>>>>>>> 56cf216069fe26910b3f85c91cf9f694d40aee15
   }
 
   return (
